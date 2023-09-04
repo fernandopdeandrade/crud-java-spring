@@ -21,6 +21,7 @@ $ git clone git@github.com:fernandopdeandrade/crud-java-spring.git
 Endpoints usados no projeto:
 
 ```markdown
+-------------Product--------------
 GET /product - Buscar todos os produtos do banco.
 
 POST /product - Registrar um novo produto.
@@ -30,6 +31,17 @@ PUT /product - Alterar ou editar um produto do banco, é necessário passar o id
 DELETE /product/inative/{id} - Inativar um produto sem excluir do banco de dados.
 
 DELETE /product/delete/{id} - Excluir um produto permanentemente do banco de dados.
+
+------------Client---------------
+GET /client - Buscar todos os clientes do banco.
+
+POST /client - Registrar um novo cliente.
+
+PUT /client - Alterar ou editar um cliente do banco, é necessário passar o id do cliente no body.
+
+DELETE /client/inative/{id} - Inativar um cliente sem excluir do banco de dados.
+
+DELETE /client/delete/{id} - Excluir um cliente permanentemente do banco de dados.
 ```
 
 ## Banco de dados
