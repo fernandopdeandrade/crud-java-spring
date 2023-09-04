@@ -14,11 +14,11 @@ $ git clone git@github.com:fernandopdeandrade/crud-java-spring.git
 ## Use
 
 1. Iniciar o applicaivo com Maven
-2. The API will be accessible at http://localhost:8080
+2. API acessível em: http://localhost:8080
 
 
 ## Endpoints da API
-A API estará acessível nesses endpoints:
+Endpoints usados no projeto:
 
 ```markdown
 GET /product - Buscar todos os produtos do banco.
