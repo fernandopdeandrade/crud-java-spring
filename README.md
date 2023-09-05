@@ -24,22 +24,30 @@ Endpoints usados no projeto:
 -------------Product--------------
 GET /product - Buscar todos os produtos do banco.
 
+GET /product/{id} - Buscar um produto do banco de dados pelo id.
+
 POST /product - Registrar um novo produto.
 
 PUT /product - Alterar ou editar um produto do banco, é necessário passar o id do produto no body.
 
-DELETE /product/inative/{id} - Inativar um produto sem excluir do banco de dados.
+PUT /product/desative/{id} - Inativar um produto sem excluir do banco de dados.
+
+PUT /client/active/{id} - Ativar um produto desativado do banco de dados.
 
 DELETE /product/delete/{id} - Excluir um produto permanentemente do banco de dados.
 
 ------------Client---------------
 GET /client - Buscar todos os clientes do banco.
 
+GET /client - Buscar um cliente do banco de dados pelo id.
+
 POST /client - Registrar um novo cliente.
 
 PUT /client - Alterar ou editar um cliente do banco, é necessário passar o id do cliente no body.
 
-DELETE /client/inative/{id} - Inativar um cliente sem excluir do banco de dados.
+PUT /client/desative/{id} - Inativar um cliente sem excluir do banco de dados.
+
+PUT /client/active/{id} - Ativar um cliente desativado do banco de dados.
 
 DELETE /client/delete/{id} - Excluir um cliente permanentemente do banco de dados.
 ```
