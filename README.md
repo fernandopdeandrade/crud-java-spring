@@ -15,7 +15,7 @@ $ git clone git@github.com:fernandopdeandrade/crud-java-spring.git
 
 1. Iniciar o applicaivo com Maven
 2. API acessível em: http://localhost:8080
-3. Os endpoints estão nesse arquivo .json, é só importar para o insomnia, thunder-client etc...: [Arquivo](./Insomnia_2023-09-04.json)
+3. Os endpoints estão nesse arquivo .json, é só importar para o insomnia, thunder-client etc...: [Arquivo](./endpoints.json)
 
 ## Endpoints da API
 Endpoints usados no projeto:
