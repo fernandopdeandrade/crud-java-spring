@@ -38,66 +38,90 @@ public class ClientController {
     }
   }
 
-    @PostMapping
-    public ResponseEntity<Client> registerClient(@RequestBody @Valid RequestCliente data) {
-      boolean clientExists = false;
-      var allClients = repository.findAllByActiveTrue();
-
-      for (Client client : allClients) {
-        if (client.getName().equals(data.name())) {
-          clientExists = true;
-        }
-      }
-
-      if (clientExists) {
-        throw new IllegalArgumentException();
-      } else {
-        Client newClient = new Client(data);
-        repository.save(newClient);
-        return ResponseEntity.ok(newClient);
-      }
-    }
-    
-    @PutMapping
-    @Transactional
-    public ResponseEntity<Client> updateClient(@RequestBody @Valid RequestCliente data) {
-      Optional<Client> optionalClient = repository.findById(data.id());
+  @GetMapping("/{id}")
+  public ResponseEntity<Client> getClientById(@PathVariable String id) {
+      Optional<Client> optionalClient = repository.findById(id);
       if (optionalClient.isPresent()) {
-        Client Client = optionalClient.get();
-        Client.setName(data.name());
-        Client.setCpf(data.cpf());
-        Client.setEmail(data.email());
-        Client.setBirth_date(data.birth_date());
-        Client.setId_product(data.id_product());
-        return ResponseEntity.ok(Client);
+          Client client = optionalClient.get();
+          return ResponseEntity.ok(client);
       } else {
-        throw new EntityNotFoundException();
+          throw new EntityNotFoundException();
       }
     }
-    
-    @DeleteMapping("/desative/{id}")
-    @Transactional
-    public ResponseEntity<Client> desativeClient(@PathVariable String id) {
-        Optional<Client> optionalClient = repository.findById(id);
-        if (optionalClient.isPresent()) {
-            Client client = optionalClient.get();
-            client.setActive(false);
-            return ResponseEntity.noContent().build();
-        } else {
-            throw new EntityNotFoundException();
-        }
+
+  @PostMapping
+  public ResponseEntity<Client> registerClient(@RequestBody @Valid RequestCliente data) {
+    boolean clientExists = false;
+    var allClients = repository.findAllByActiveTrue();
+
+    for (Client client : allClients) {
+      if (client.getName() == data.name() && client.getCpf().equals(data.cpf())) {
+        clientExists = true;
+      }
     }
-    
-    @DeleteMapping("/delete/{id}")
-    @Transactional
-    public ResponseEntity<Client> deleteClient(@PathVariable String id){
-        Optional<Client> optionalClient = repository.findById(id);
-        if (optionalClient.isPresent()) {
-            Client client = optionalClient.get();
-            repository.delete(client);
-            return ResponseEntity.noContent().build();
-        } else {
-            throw new EntityNotFoundException();
-        }
+
+    if (clientExists) {
+      throw new IllegalArgumentException();
+    } else {
+      Client newClient = new Client(data);
+      repository.save(newClient);
+      return ResponseEntity.ok(newClient);
     }
+  }
+    
+  @PutMapping
+  @Transactional
+  public ResponseEntity<Client> updateClient(@RequestBody @Valid RequestCliente data) {
+    Optional<Client> optionalClient = repository.findById(data.id());
+    if (optionalClient.isPresent()) {
+      Client Client = optionalClient.get();
+      Client.setName(data.name());
+      Client.setCpf(data.cpf());
+      Client.setEmail(data.email());
+      Client.setBirth_date(data.birth_date());
+      Client.setId_product(data.id_product());
+      return ResponseEntity.ok(Client);
+    } else {
+      throw new EntityNotFoundException();
+    }
+  }
+    
+  @PutMapping("/desative/{id}")
+  @Transactional
+  public ResponseEntity<Client> desativeClient(@PathVariable String id) {
+    Optional<Client> optionalClient = repository.findById(id);
+    if (optionalClient.isPresent()) {
+      Client client = optionalClient.get();
+      client.setActive(false);
+      return ResponseEntity.noContent().build();
+    } else {
+      throw new EntityNotFoundException();
+    }
+  }
+  
+  @PutMapping("/active/{id}")
+  @Transactional
+  public ResponseEntity<Client> activeClient(@PathVariable String id) {
+      Optional<Client> optionalClient = repository.findById(id);
+      if (optionalClient.isPresent()) {
+          Client client = optionalClient.get();
+          client.setActive(true);
+          return ResponseEntity.noContent().build();
+      } else {
+          throw new EntityNotFoundException();
+      }
+  }
+    
+  @DeleteMapping("/delete/{id}")
+  @Transactional
+  public ResponseEntity<Client> deleteClient(@PathVariable String id){
+      Optional<Client> optionalClient = repository.findById(id);
+      if (optionalClient.isPresent()) {
+          Client client = optionalClient.get();
+          repository.delete(client);
+          return ResponseEntity.noContent().build();
+      } else {
+          throw new EntityNotFoundException();
+      }
+  }
 }

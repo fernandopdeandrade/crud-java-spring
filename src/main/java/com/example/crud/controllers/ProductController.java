@@ -37,6 +37,17 @@ public class ProductController {
         return ResponseEntity.badRequest().build();
        } 
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Product> getProductById(@PathVariable String id) {
+        Optional<Product> optionalProduct = repository.findById(id);
+        if (optionalProduct.isPresent()) {
+            Product product = optionalProduct.get();
+            return ResponseEntity.ok(product);
+        } else {
+            throw new EntityNotFoundException();
+        }
+    }
      
     @PostMapping
     public ResponseEntity<Product> registerProduct(@RequestBody @Valid RequestProduct data) {
@@ -72,13 +83,26 @@ public class ProductController {
         }
     }
     
-    @DeleteMapping("/desative/{id}")
+    @PutMapping("/desative/{id}")
     @Transactional
     public ResponseEntity<Product> desativeProduct(@PathVariable String id) {
         Optional<Product> optionalProduct = repository.findById(id);
         if (optionalProduct.isPresent()) {
             Product product = optionalProduct.get();
             product.setActive(false);
+            return ResponseEntity.noContent().build();
+        } else {
+            throw new EntityNotFoundException();
+        }
+    }
+
+    @PutMapping("/active/{id}")
+    @Transactional
+    public ResponseEntity<Product> activeProduct(@PathVariable String id) {
+        Optional<Product> optionalProduct = repository.findById(id);
+        if (optionalProduct.isPresent()) {
+            Product product = optionalProduct.get();
+            product.setActive(true);
             return ResponseEntity.noContent().build();
         } else {
             throw new EntityNotFoundException();
